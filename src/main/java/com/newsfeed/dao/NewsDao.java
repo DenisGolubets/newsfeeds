@@ -1,8 +1,9 @@
-package com.newsfeed.service;
+package com.newsfeed.dao;
 
 import com.newsfeed.domain.News;
 import com.newsfeed.util.HibernateSessionFactory;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,12 @@ import java.util.List;
  */
 
 @Service
-public class NewsService {
+public class NewsDao {
 
     protected static Logger logger = Logger.getLogger(News.class);
     private SessionFactory sessionFactory;
 
-    public NewsService() {
+    public NewsDao() {
         this.sessionFactory = HibernateSessionFactory.getSessionFactory();
     }
 
@@ -33,6 +34,24 @@ public class NewsService {
         } catch (Exception e) {
             session.getTransaction().rollback();
             logger.error("", e);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
+    public List<News> getByPage(int page, int totalRecordsPerPage) {
+        Session session = sessionFactory.openSession();
+        List<News> list = null;
+        try {
+            Query query = session.createQuery("From News");
+            query.setFirstResult((page - 1) * totalRecordsPerPage);
+            query.setMaxResults(totalRecordsPerPage);
+            list = query.list();
+        } catch (Exception e) {
+            logger.error("", e);
+        } finally {
+            session.close();
         }
         return list;
     }
@@ -47,6 +66,23 @@ public class NewsService {
         } catch (Exception e) {
             session.getTransaction().rollback();
             logger.error("", e);
+        } finally {
+            session.close();
         }
+    }
+
+    public int getCountRecords() {
+        Session session = sessionFactory.openSession();
+
+        int count = 0;
+        try {
+            Number quantityRowsInDb = (Number) (session.createQuery("select count(*) from News ").uniqueResult());
+            count = quantityRowsInDb.intValue();
+        } catch (Exception e) {
+            logger.error("", e);
+        } finally {
+            session.close();
+        }
+        return count;
     }
 }

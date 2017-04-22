@@ -3,7 +3,7 @@
     <tbody>
     <tr>
         <td><a href=${pageContext.request.contextPath}/ >News feed</a></td>
-        <td><a href=${pageContext.request.contextPath}/settings >Add news</a></td>
+        <td><a href=${pageContext.request.contextPath}/addnews >Add news</a></td>
     </tr>
     </tbody>
 </table>

@@ -2,13 +2,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.png" type="image/png">
     <title>Add news</title>
 </head>
 <!-- -*- HTML -*- -->
+
 <body>
 <div id="header">
     <jsp:include page="/jsp/headerMenue.jsp"/>
+
 </div>
 <div id="main">
     <div id="content">
