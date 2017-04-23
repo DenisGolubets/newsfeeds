@@ -8,12 +8,6 @@
 <!-- -*- HTML -*- -->
 
 <body>
-<div id="header">
-    <jsp:include page="/jsp/headerMenue.jsp"/>
-
-</div>
-<div id="main">
-    <div id="content">
         <form:form method="POST" commandName="news" action="addnews" enctype="multipart/form-data">
             <table>
                 <tr>
@@ -38,8 +32,5 @@
                 </tr>
             </table>
         </form:form>
-
-    </div>
-</div>
 </body>
 </html>

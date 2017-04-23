@@ -3,13 +3,10 @@
 <html>
 <head>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.png" type="image/png">
-    <title>Home</title>
+    <title>Home ......</title>
 
 </head>
 <body>
-<div id="header">
-    <jsp:include page="/jsp/headerMenue.jsp"/>
-</div>
 <c:forEach items="${newsList}" var="news">
     <table border="0">
         <tbody>

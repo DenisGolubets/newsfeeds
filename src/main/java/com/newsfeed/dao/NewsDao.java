@@ -2,7 +2,6 @@ package com.newsfeed.dao;
 
 import com.newsfeed.domain.News;
 import com.newsfeed.util.HibernateSessionFactory;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +16,7 @@ import java.util.List;
 @Service
 public class NewsDao {
 
-    protected static Logger logger = Logger.getLogger(News.class);
+//    protected static Logger logger = Logger.getLogger(News.class);
     private SessionFactory sessionFactory;
 
     public NewsDao() {
@@ -33,7 +32,7 @@ public class NewsDao {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("", e);
+//            logger.error("", e);
         } finally {
             session.close();
         }
@@ -49,7 +48,7 @@ public class NewsDao {
             query.setMaxResults(totalRecordsPerPage);
             list = query.list();
         } catch (Exception e) {
-            logger.error("", e);
+//            logger.error("", e);
         } finally {
             session.close();
         }
@@ -65,7 +64,7 @@ public class NewsDao {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            logger.error("", e);
+//            logger.error("", e);
         } finally {
             session.close();
         }
@@ -79,7 +78,7 @@ public class NewsDao {
             Number quantityRowsInDb = (Number) (session.createQuery("select count(*) from News ").uniqueResult());
             count = quantityRowsInDb.intValue();
         } catch (Exception e) {
-            logger.error("", e);
+//            logger.error("", e);
         } finally {
             session.close();
         }

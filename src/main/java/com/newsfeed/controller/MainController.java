@@ -1,9 +1,8 @@
 package com.newsfeed.controller;
 
-import com.newsfeed.domain.News;
 import com.newsfeed.dao.NewsDao;
+import com.newsfeed.domain.News;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,7 +17,6 @@ import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +26,7 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    protected static Logger logger = Logger.getLogger(News.class);
+//    protected static Logger logger = Logger.getLogger(News.class);
 
     @Autowired
     private NewsDao newsDao;
@@ -41,7 +39,6 @@ public class MainController {
         modelAndView.setViewName("index");
         int totalRecordsPerPage = 10;
         int pages = (int) Math.ceil((double) newsDao.getCountRecords() / totalRecordsPerPage);
-        System.out.println(pages);
         List<News> list;
         list = newsDao.getByPage(1, totalRecordsPerPage);
         modelAndView.addObject("newsList", list);
@@ -65,7 +62,7 @@ public class MainController {
     @RequestMapping(value = "addnews")
     public ModelAndView news() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("newsAdd");
+        modelAndView.setViewName("addnews");
         modelAndView.addObject("news", new News());
         return modelAndView;
     }
@@ -86,7 +83,7 @@ public class MainController {
             entity.setPicturePath(path);
             newsDao.persist(entity);
         } catch (IOException e) {
-            logger.error("", e);
+//            logger.error("", e);
         }
 
         if (result.hasErrors()) {
