@@ -1,1 +1,1 @@
-<p>Copyright  2017</p>
+<p>Copyright 2017</p>

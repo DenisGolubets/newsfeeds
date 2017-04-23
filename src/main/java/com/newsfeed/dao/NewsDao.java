@@ -2,6 +2,7 @@ package com.newsfeed.dao;
 
 import com.newsfeed.domain.News;
 import com.newsfeed.util.HibernateSessionFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,19 +11,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service for processing News Feed
+ * Dao layer for News Feed
  */
 
 @Service
 public class NewsDao {
 
-//    protected static Logger logger = Logger.getLogger(News.class);
+    protected static Logger logger = Logger.getLogger(News.class);
     private SessionFactory sessionFactory;
 
     public NewsDao() {
         this.sessionFactory = HibernateSessionFactory.getSessionFactory();
     }
 
+
+    /**
+     * return all List<News>
+     */
     public List<News> getAll() {
         Session session = sessionFactory.openSession();
         List<News> list = null;
@@ -32,14 +37,18 @@ public class NewsDao {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-//            logger.error("", e);
+            logger.error("", e);
         } finally {
             session.close();
         }
         return list;
     }
 
-    public List<News> getByPage(int page, int totalRecordsPerPage) {
+    /**
+     * return sorted desc List<News> by given page number
+     * and quantity of records per page
+     */
+    public List<News> getNewsListByPage(int page, int totalRecordsPerPage) {
         Session session = sessionFactory.openSession();
         List<News> list = null;
         try {
@@ -48,13 +57,17 @@ public class NewsDao {
             query.setMaxResults(totalRecordsPerPage);
             list = query.list();
         } catch (Exception e) {
-//            logger.error("", e);
+            logger.error("", e);
         } finally {
             session.close();
         }
         return list;
     }
 
+
+    /**
+     * persist news
+     */
     public void persist(News feed) {
         Session session = sessionFactory.openSession();
 
@@ -64,13 +77,14 @@ public class NewsDao {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-//            logger.error("", e);
+            logger.error("", e);
         } finally {
             session.close();
         }
     }
 
-    public int getCountRecords() {
+    //return quantity of news in table
+    public int getRecordsQuantity() {
         Session session = sessionFactory.openSession();
 
         int count = 0;
@@ -78,7 +92,7 @@ public class NewsDao {
             Number quantityRowsInDb = (Number) (session.createQuery("select count(*) from News ").uniqueResult());
             count = quantityRowsInDb.intValue();
         } catch (Exception e) {
-//            logger.error("", e);
+            logger.error("", e);
         } finally {
             session.close();
         }

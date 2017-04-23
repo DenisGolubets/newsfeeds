@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page errorPage="error.jsp" %>
 <html>
 <head>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.png" type="image/png">

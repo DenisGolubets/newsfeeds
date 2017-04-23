@@ -3,6 +3,7 @@ package com.newsfeed.controller;
 import com.newsfeed.dao.NewsDao;
 import com.newsfeed.domain.News;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,44 +22,52 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by golubets on 19.04.2017.
+ * Servlet controller
  */
 @Controller
 public class MainController {
 
-//    protected static Logger logger = Logger.getLogger(News.class);
+    protected static Logger logger = Logger.getLogger(News.class);
 
     @Autowired
     private NewsDao newsDao;
     @Autowired
     ServletContext servletContext;
 
+    /**
+     * Request mapping index page
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         int totalRecordsPerPage = 10;
-        int pages = (int) Math.ceil((double) newsDao.getCountRecords() / totalRecordsPerPage);
+        int pages = (int) Math.ceil((double) newsDao.getRecordsQuantity() / totalRecordsPerPage);
         List<News> list;
-        list = newsDao.getByPage(1, totalRecordsPerPage);
+        list = newsDao.getNewsListByPage(1, totalRecordsPerPage);
         modelAndView.addObject("newsList", list);
         modelAndView.addObject("pages", pages);
         return modelAndView;
     }
-
+    /**
+     * Request mapping appointed quantity of records in page
+     */
     @RequestMapping(value="/{pageid}")
     public ModelAndView edit(@PathVariable int pageid){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         int totalRecordPerPage = 10;
-        int pages = (int) Math.ceil((double)newsDao.getCountRecords() / totalRecordPerPage);
+        int pages = (int) Math.ceil((double)newsDao.getRecordsQuantity() / totalRecordPerPage);
         List<News> list;
-        list = newsDao.getByPage(pageid, totalRecordPerPage);
+        list = newsDao.getNewsListByPage(pageid, totalRecordPerPage);
         modelAndView.addObject("newsList", list);
         modelAndView.addObject("pages", pages);
         return modelAndView;
     }
 
+    /**
+     * Request mapping add news form
+     */
     @RequestMapping(value = "addnews")
     public ModelAndView news() {
         ModelAndView modelAndView = new ModelAndView();
@@ -67,6 +76,10 @@ public class MainController {
         return modelAndView;
     }
 
+    /**
+     * Validate news date, image and return back if find errors
+     * or if validate successfully redirect to news feed(index page)
+     */
     @RequestMapping(value = "addnews", method = RequestMethod.POST)
     public String saveNews(@RequestParam("file") MultipartFile file, @Valid News entity, BindingResult result) {
 
@@ -86,11 +99,7 @@ public class MainController {
             entity.setPicturePath(path);
             newsDao.persist(entity);
         } catch (IOException e) {
-//            logger.error("", e);
-        }
-
-        if (result.hasErrors()) {
-            return "redirect:/";
+            logger.error("", e);
         }
 
         return "redirect:/";

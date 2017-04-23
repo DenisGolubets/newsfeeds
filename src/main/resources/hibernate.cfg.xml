@@ -4,6 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <!-- hibernate main configuration  -->
         <property name="show_sql">true</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/news_feed?useSSL=true</property>
@@ -11,7 +12,9 @@
         <property name="hibernate.connection.password"></property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+        <!-- hibernate c3p0 connection pooling configuration  -->
+        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider
+        </property>
         <property name="hibernate.c3p0.acquire_increment">1</property>
         <property name="hibernate.c3p0.idle_test_period">60</property> <!-- seconds -->
         <property name="hibernate.c3p0.min_size">1</property>
@@ -21,7 +24,7 @@
         <property name="hibernate.c3p0.acquireRetryAttempts">1</property>
         <property name="hibernate.c3p0.acquireRetryDelay">250</property>
 
-
+        <!-- Entity-->
         <mapping class="com.newsfeed.domain.News"/>
     </session-factory>
 </hibernate-configuration>

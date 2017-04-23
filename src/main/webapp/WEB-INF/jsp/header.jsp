@@ -2,8 +2,8 @@
 <table width="200" border="0">
     <tbody>
     <tr>
-        <td><a href=${pageContext.request.contextPath}/>News feed</a></td>
-        <td><a href=${pageContext.request.contextPath}/addnews >Add news</a></td>
+        <td><a href=${pageContext.request.contextPath}/ >News feed</a></td>
+        <td><a href=${pageContext.request.contextPath}/addnews>Add news</a></td>
     </tr>
     </tbody>
 </table>

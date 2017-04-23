@@ -4,13 +4,11 @@ import com.sun.istack.internal.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
- * Created by golubets on 18.04.2017.
+ * News entity
  */
 @Entity
 @Table(name = "feed", schema = "news_feed")
