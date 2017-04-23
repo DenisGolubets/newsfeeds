@@ -7,4 +7,3 @@
     </tr>
     </tbody>
 </table>
-<hr/>

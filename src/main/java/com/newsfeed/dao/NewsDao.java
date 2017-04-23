@@ -43,7 +43,7 @@ public class NewsDao {
         Session session = sessionFactory.openSession();
         List<News> list = null;
         try {
-            Query query = session.createQuery("From News");
+            Query query = session.createQuery("From News order by id desc ");
             query.setFirstResult((page - 1) * totalRecordsPerPage);
             query.setMaxResults(totalRecordsPerPage);
             list = query.list();

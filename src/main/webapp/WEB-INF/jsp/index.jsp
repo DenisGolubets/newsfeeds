@@ -3,7 +3,7 @@
 <html>
 <head>
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.png" type="image/png">
-    <title>Home ......</title>
+    <title>Home</title>
 
 </head>
 <body>
@@ -37,9 +37,12 @@
 </c:forEach>
 
 <p>
-    <c:forEach begin="1" end="${pages}" varStatus="loop">
-        <a href="${loop.count}">${loop.count}</a>
-    </c:forEach>
+    <c:if test="${pages > 1}">
+        <c:forEach begin="1" end="${pages}" varStatus="loop">
+            <a href="${loop.count}">${loop.count}</a>
+        </c:forEach>
+    </c:if>
+
 </p>
 </body>
 </html>
