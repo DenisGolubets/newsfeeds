@@ -12,9 +12,8 @@
             <table>
                 <tr>
                     <td>Title</td>
-                    <td>
-                        <form:input path="title"/>
-                    </td>
+                    <td><form:input path="title"/></td>
+                    <td><form:errors path="title" cssClass="error" /></td>
                 </tr>
                 <tr>
                     <td>Message</td>
@@ -22,6 +21,7 @@
                         <form:textarea rows="5" cols="45" path="message"/>
                         </textarea>
                     </td>
+                    <td><form:errors path="message" cssClass="error" /></td>
                 </tr>
                 <tr>
                     <td>Pictures</td>

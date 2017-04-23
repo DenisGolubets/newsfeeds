@@ -78,6 +78,9 @@ public class MainController {
                 File dest = new File(servletContext.getRealPath("/") + path);
                 FileUtils.copyInputStreamToFile(file.getInputStream(), dest);
             }
+            if (result.hasErrors()){
+                return "addnews";
+            }
 
             entity.setNewsDate(new java.sql.Timestamp(new Date().getTime()).toString());
             entity.setPicturePath(path);

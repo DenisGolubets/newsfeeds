@@ -1,6 +1,12 @@
 package com.newsfeed.domain;
 
+import com.sun.istack.internal.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -25,6 +31,9 @@ public class News implements Serializable {
         this.id = id;
     }
 
+    @NotNull
+    @NotEmpty
+    @Size(min = 1, max = 65)
     @Basic
     @Column(name = "title")
     public String getTitle() {
@@ -34,6 +43,7 @@ public class News implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     @Basic
     @Column(name = "news_date")
@@ -45,6 +55,9 @@ public class News implements Serializable {
         this.newsDate = feedDate;
     }
 
+    @NotNull
+    @NotEmpty
+    @Size(min = 100, max = 5000)
     @Basic
     @Column(name = "message")
     public String getMessage() {
