@@ -19,12 +19,10 @@ import java.util.List;
  */
 @Service
 public class FeedServiceTest {
-    private List<News> newsList = null;
-    private NewsDao newsDao = new NewsDao();
-
 
     @Before
     public void before() {
+        NewsDao newsDao = new NewsDao();
         List<News> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             News news = new News();
@@ -34,17 +32,18 @@ public class FeedServiceTest {
             news.setNewsDate(new Timestamp(new Date().getTime()).toString());
             newsDao.persist(news);
         }
-        newsList = list;
     }
 
     @Test
     public void getAll() throws Exception {
+        NewsDao newsDao = new NewsDao();
         int countRows = newsDao.getRecordsQuantity();
         Assert.assertTrue(newsDao.getAll().size() == countRows);
     }
 
     @Test
     public void persist() throws Exception {
+        NewsDao newsDao = new NewsDao();
         int countRows = newsDao.getRecordsQuantity();
 
         News news = new News();
@@ -61,19 +60,20 @@ public class FeedServiceTest {
 
     @Test
     public void getByPage() throws Exception {
+        NewsDao newsDao = new NewsDao();
         List<News> list = newsDao.getNewsListByPage(1,10);
-
         Assert.assertTrue(list.size()==10);
     }
 
     @Test
     public void getCount() throws Exception {
-
+        NewsDao newsDao = new NewsDao();
         Assert.assertTrue(newsDao.getRecordsQuantity()>0);
     }
 
     @Test
     public void delete(){
+        NewsDao newsDao = new NewsDao();
         int countRows = newsDao.getRecordsQuantity();
         News news = new News();
         news.setTitle("Delete");
@@ -90,7 +90,7 @@ public class FeedServiceTest {
 
     @After
     public void after(){
-        List<News> list;
+        NewsDao newsDao = new NewsDao();
         for (News news: newsDao.getNewsListByPage(1,10)){
             newsDao.delete(news);
         }

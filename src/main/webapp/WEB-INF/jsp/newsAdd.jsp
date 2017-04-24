@@ -16,7 +16,7 @@
                 console.log(val);
                 if (!(regex.test(val)) || size > 5242880) {
                     $(this).val('');
-                    alert('Please select correct file format:jpg, bmp, png, gif and size below 5Mb!');
+                    alert('Please select correct file format: jpg, bmp, png, gif and size below 5Mb!');
                 }
             });
         });

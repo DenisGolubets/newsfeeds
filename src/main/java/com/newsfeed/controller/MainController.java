@@ -58,8 +58,7 @@ public class MainController {
         modelAndView.setViewName("index");
         int totalRecordPerPage = 10;
         int pages = (int) Math.ceil((double)newsDao.getRecordsQuantity() / totalRecordPerPage);
-        List<News> list;
-        list = newsDao.getNewsListByPage(pageid, totalRecordPerPage);
+        List<News> list = newsDao.getNewsListByPage(pageid, totalRecordPerPage);
         modelAndView.addObject("newsList", list);
         modelAndView.addObject("pages", pages);
         return modelAndView;
