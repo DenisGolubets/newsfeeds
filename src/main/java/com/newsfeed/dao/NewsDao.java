@@ -68,12 +68,12 @@ public class NewsDao {
     /**
      * persist news
      */
-    public void persist(News feed) {
+    public void persist(News news) {
         Session session = sessionFactory.openSession();
 
         try {
             session.beginTransaction();
-            session.persist(feed);
+            session.persist(news);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -83,7 +83,9 @@ public class NewsDao {
         }
     }
 
-    //return quantity of news in table
+    /**
+     * return quantity of news in table
+     */
     public int getRecordsQuantity() {
         Session session = sessionFactory.openSession();
 
@@ -97,5 +99,23 @@ public class NewsDao {
             session.close();
         }
         return count;
+    }
+
+    /**
+     * delete news
+     */
+
+    public void delete(News news){
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.delete(news);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            logger.error("", e);
+        } finally {
+            session.close();
+        }
     }
 }
